@@ -1,5 +1,11 @@
 {
   "dependencies": {
+    "com.heathen.steamworkscomplete": {
+      "version": "file:D:/UnityProject/多人资源包/SourceRepo-main/Unity/Legacy/Steamworks/com.heathen.steamworkscomplete",
+      "depth": 0,
+      "source": "local",
+      "dependencies": {}
+    },
     "com.unity.2d.animation": {
       "version": "10.1.3",
       "depth": 1,
