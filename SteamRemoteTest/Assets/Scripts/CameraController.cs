@@ -8,8 +8,7 @@ public class CameraController : NetworkBehaviour
         base.OnStartClient();
         if (IsOwner)
         {
-            Camera cam = GetComponent<Camera>();
-            cam.enabled = true;
+            gameObject.SetActive(true);
         }
     }
 }
