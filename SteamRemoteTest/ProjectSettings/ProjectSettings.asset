@@ -575,7 +575,7 @@ PlayerSettings:
   webGLCloseOnQuit: 0
   webWasm2023: 0
   scriptingDefineSymbols:
-    Standalone: FISHNET;FISHNET_V4;FISHNET_PRO;EDGEGAP_PLUGIN_SERVERS;FISHNET_STABLE_MODE;FISHNET_DISABLE_V3TOV4_HELPERS
+    Standalone: FISHNET;FISHNET_V4;FISHNET_PRO;EDGEGAP_PLUGIN_SERVERS;FISHNET_STABLE_MODE;FISHNET_DISABLE_V3TOV4_HELPERS;STEAMWORKS_NET
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend:
