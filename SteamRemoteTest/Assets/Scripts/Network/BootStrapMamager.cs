@@ -17,6 +17,7 @@ public class BootStrapMamager : MonoBehaviour
     protected Callback<GameLobbyJoinRequested_t> GameLobbyJoinRequested;
     protected Callback<LobbyEnter_t> LobbyEntered;
     
+    public static ulong currentLobbyId;
     public static void CreateLobby()
     {
         SteamMatchmaking.CreateLobby(ELobbyType.k_ELobbyTypeFriendsOnly, 4);
@@ -51,30 +52,41 @@ public class BootStrapMamager : MonoBehaviour
     {
         if (pCallback.m_eResult == EResult.k_EResultOK)
         {
-            Debug.Log("Lobby created successfully: " + pCallback.m_ulSteamIDLobby + " " + pCallback.m_eResult);
+            Debug.Log("LOG: Lobby created successfully: " + pCallback.m_ulSteamIDLobby + " " + pCallback.m_eResult);
         }
         else
         {
-            Debug.Log("Lobby created failed " + pCallback.m_eResult);
+            Debug.Log("LOG: Lobby created failed " + pCallback.m_eResult);
         }
+        
+        currentLobbyId = pCallback.m_ulSteamIDLobby;
+        SteamMatchmaking.SetLobbyData(new CSteamID(currentLobbyId), "HostAddress", SteamUser.GetSteamID().ToString());
+        SteamMatchmaking.SetLobbyData(new CSteamID(currentLobbyId), "name", SteamFriends.GetPersonaName() + "'s lobby");
+        _fishySteamworks.SetClientAddress(SteamUser.GetSteamID().ToString());
+        _fishySteamworks.StartConnection(true);
+        Debug.Log("- Lobby created!!");
     }
     
     private void OnJoinRequested(GameLobbyJoinRequested_t pCallback)
     {
-        Debug.Log("Join requested");
-        // SteamMatchmaking.JoinLobby(pCallback.m_steamIDLobby);
+        Debug.Log("LOG: Join requested");
+        SteamMatchmaking.JoinLobby(pCallback.m_steamIDLobby);
     }
     
     private void OnLobbyEntered(LobbyEnter_t pCallback)
     {
         if (pCallback.m_EChatRoomEnterResponse == 1)
         {
-            Debug.Log("Lobby entered successfully");
+            Debug.Log("LOG: Lobby entered successfully");
         }
         else
         {
-            Debug.Log("Lobby entered failed");
+            Debug.Log("LOG: Lobby entered failed");
         }
+        
+        currentLobbyId = pCallback.m_ulSteamIDLobby;
+        _fishySteamworks.SetClientAddress(SteamMatchmaking.GetLobbyData(new CSteamID(currentLobbyId), "HostAddress"));
+        _fishySteamworks.StartConnection(false);
     }
     
 }
