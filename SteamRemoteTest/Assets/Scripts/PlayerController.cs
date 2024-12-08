@@ -15,14 +15,25 @@ public class PlayerController : NetworkBehaviour
 
     void Update()
     {
-        if (!IsOwner)
+        if(!IsClient)
         {
             return;
+        }
+        
+        if (!IsOwner)
+        {
+            rb.bodyType = RigidbodyType2D.Kinematic;
+            return;
+        }
+        else
+        {
+            rb.bodyType = RigidbodyType2D.Dynamic;
         }
         // 获取玩家输入
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
-        rb.linearVelocity = movement.normalized * moveSpeed;
+        rb.MovePosition((Vector2) transform.position + movement.normalized * moveSpeed * Time.deltaTime);
+        //rb.linearVelocity = movement.normalized * moveSpeed;
     }
 
 }
