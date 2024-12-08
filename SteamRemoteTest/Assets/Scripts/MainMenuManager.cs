@@ -62,8 +62,7 @@ public class MainMenuManager : MonoBehaviour
 
     public void StartGame()
     {
-        BootstrapNetworkManager.changeNetworkScene(GameSceneName,scemesToClose);
-        Destroy(debugConsole);
+        BootstrapNetworkManager.instance.changeNetworkScene(GameSceneName,scemesToClose);
     }
     
     public void OpenMainMenu()

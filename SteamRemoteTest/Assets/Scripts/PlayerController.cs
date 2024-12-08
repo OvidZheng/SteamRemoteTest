@@ -20,8 +20,8 @@ public class PlayerController : NetworkBehaviour
             return;
         }
         // 获取玩家输入
-        movement.x = Input.GetAxisRaw("Horizontal"); // 水平输入（A/D 或 左/右方向键）
-        movement.y = Input.GetAxisRaw("Vertical"); // 垂直输入（W/S 或 上/下方向键）
+        movement.x = Input.GetAxisRaw("Horizontal");
+        movement.y = Input.GetAxisRaw("Vertical");
         rb.linearVelocity = movement.normalized * moveSpeed;
     }
 
