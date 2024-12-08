@@ -182,7 +182,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _networkManager: {fileID: 5907538925871258080}
   _fishySteamworks: {fileID: 5907538925871258096}
-  menuSceneName: Empty
+  menuSceneName: MainMenu
 --- !u!114 &3942769158284949702
 MonoBehaviour:
   m_ObjectHideFlags: 0

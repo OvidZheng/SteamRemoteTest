@@ -31,7 +31,7 @@ public class BootStrapMamager : MonoBehaviour
         }
 
         _instance = this;
-        DontDestroyOnLoad(gameObject);
+        
         App.evtSteamInitialized.AddListener(GoToMenu);
     }
 
@@ -62,7 +62,7 @@ public class BootStrapMamager : MonoBehaviour
     private void OnJoinRequested(GameLobbyJoinRequested_t pCallback)
     {
         Debug.Log("Join requested");
-        SteamMatchmaking.JoinLobby(pCallback.m_steamIDLobby);
+        // SteamMatchmaking.JoinLobby(pCallback.m_steamIDLobby);
     }
     
     private void OnLobbyEntered(LobbyEnter_t pCallback)
