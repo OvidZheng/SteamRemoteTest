@@ -1,3 +1,4 @@
+using System;
 using FishNet.Managing;
 using Heathen.SteamworksIntegration.API;
 using Steamworks;
@@ -21,6 +22,31 @@ public class BootStrapMamager : MonoBehaviour
     public static void CreateLobby()
     {
         SteamMatchmaking.CreateLobby(ELobbyType.k_ELobbyTypeFriendsOnly, 4);
+    }
+    
+    public static void JoinById(CSteamID steamID)
+    {
+        Debug.Log("LOG: Joining lobby by id" + steamID);
+        if(SteamMatchmaking.RequestLobbyData(steamID))
+        {
+            Debug.Log("LOG: Requested lobby data: " + steamID);
+            SteamMatchmaking.JoinLobby(steamID);
+        }
+        else
+        {
+            Debug.Log("LOG: Failed to request lobby data: " + steamID);
+        }
+    }
+    
+    public static void LeaveLobby()
+    {
+        SteamMatchmaking.LeaveLobby(new CSteamID(currentLobbyId));
+        currentLobbyId = 0;
+        _instance._fishySteamworks.StopConnection(false);
+        if(_instance._networkManager.IsServer)
+        {
+            _instance._fishySteamworks.StopConnection(true);
+        }
     }
     
     private void Awake()
@@ -85,6 +111,8 @@ public class BootStrapMamager : MonoBehaviour
         }
         
         currentLobbyId = pCallback.m_ulSteamIDLobby;
+        MainMenuManager.LobbyEntered(SteamMatchmaking.GetLobbyData(new CSteamID(currentLobbyId), "name"), _networkManager.IsServer);
+
         _fishySteamworks.SetClientAddress(SteamMatchmaking.GetLobbyData(new CSteamID(currentLobbyId), "HostAddress"));
         _fishySteamworks.StartConnection(false);
     }
